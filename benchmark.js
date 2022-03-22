@@ -21,15 +21,17 @@ function LeastSquaresTest() {
   const filename = "./tests/stm-aarhus-mul-a.mul";
   const mul = new Mul(filename);
   const array = new Uint16Array(mul.data[0].imgData.flat());
+  const xres = mul.data[0].xres;
+  const yres = mul.data[0].yres;
 
   const test = Benchmark.Suite("Least Square Test\n");
 
   test
     .add("JavaScript ml-matrix\t", function() {
-      leastSquaresMlMatrix(array);
+      leastSquaresMlMatrix(array, xres, yres);
     })
     .add("JavaScript\t\t", function () {
-      leastSquares(array);
+      leastSquares(array, xres, yres);
     })
     .add("AssemblyScript\t\t", function () {
       wasmLeastSquares(array);

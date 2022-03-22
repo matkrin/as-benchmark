@@ -1,14 +1,14 @@
-function leastSquares(flatMatrix) {
-  const matrix = createMatrix(flatMatrix, 512 * 512, 1);
-  const coeffMatrix = createCoefficientMatrix(512, 512);
+function leastSquares(flatMatrix, xres, yres) {
+  const matrix = createMatrix(flatMatrix, xres * yres, 1);
+  const coeffMatrix = createCoefficientMatrix(xres, yres);
   const qrRes = qrDecomposition(coeffMatrix);
   const qr = qrRes.qr;
   const rdiag = qrRes.rdiag;
 
-  let count = matrix[0].length;
+  let count = 1;  // matrix[0].length;
   let X = cloneMatrix(matrix);
-  let n = qr[0].length;
-  let m = qr.length;
+  let n = 3  // qr[0].length;
+  let m = xres * yres // qr.length;
   let i, j, k, s;
 
   for (k = 0; k < n; k++) {
