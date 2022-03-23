@@ -12,16 +12,16 @@ const xres = mul.data[0].xres;
 const yres = mul.data[0].yres;
 
 assert.strictEqual(leastSquares(array, xres, xres, yres)[0], leastSquaresMlMatrix(array, xres, yres)[0]);
-assert.strictEqual(leastSquares(array, xres, yres)[0], wasmLeastSquares(array)[0]);
-assert.strictEqual(leastSquaresMlMatrix(array, xres, yres)[0], wasmLeastSquares(array)[0]);
+assert.strictEqual(leastSquares(array, xres, yres)[0], wasmLeastSquares(array, xres, yres)[0]);
+assert.strictEqual(leastSquaresMlMatrix(array, xres, yres)[0], wasmLeastSquares(array, xres, yres)[0]);
 
 assert.strictEqual(leastSquaresMlMatrix(array, xres, yres)[0], 20227.999333141444);
 assert.strictEqual(leastSquares(array, xres, yres)[0], 20227.999333141444);
-assert.strictEqual(wasmLeastSquares(array)[0], 20227.999333141444);
+assert.strictEqual(wasmLeastSquares(array, xres, yres)[0], 20227.999333141444);
 
 assert.strictEqual(leastSquaresMlMatrix(array, xres, yres).length, 3)
 assert.strictEqual(leastSquares(array, xres, yres).length, 3)
-assert.strictEqual(wasmLeastSquares(array).length, 3)
+assert.strictEqual(wasmLeastSquares(array, xres, yres).length, 3)
 
 
 console.log("ok");

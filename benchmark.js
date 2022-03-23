@@ -34,12 +34,12 @@ function LeastSquaresTest() {
       leastSquares(array, xres, yres);
     })
     .add("AssemblyScript\t\t", function () {
-      wasmLeastSquares(array);
+      wasmLeastSquares(array, xres, yres);
     })
     .add("AssemblyScript Async\t", {
       defer: true,
       fn: async function(deferred) {
-      await wasmLeastSquaresAsync(array);
+      await wasmLeastSquaresAsync(array, xres, yres);
       deferred.resolve();
     }})
     runSuite(test);

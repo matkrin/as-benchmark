@@ -9,17 +9,17 @@ class QrResult {
   rdiag: Float64Array;
 }
 
-export function leastSquares(flatMatrix: Uint16Array): Float64Array {
-  const matrix = createMatrix(flatMatrix, 512 * 512, 1);
+export function leastSquares(flatMatrix: Uint16Array, xres: i32, yres: i32): Float64Array {
+  const matrix = createMatrix(flatMatrix, xres * yres, 1);
   const coeffMatrix = createCoefficientMatrix(512, 512);
   const qrRes: QrResult = qrDecomposition(coeffMatrix);
   const qr: Matrix = qrRes.qr;
   const rdiag: Float64Array = qrRes.rdiag;
 
-  let count = unchecked(matrix[0].length);
+  let count = 1;  // unchecked(matrix[0].length);
   let X = cloneMatrix(matrix);
-  let n = unchecked(qr[0].length);
-  let m = qr.length;
+  let n = 3;  // unchecked(qr[0].length);
+  let m = xres * yres;  // qr.length;
   let i: i32, j: i32, k: i32, s: f64;
 
   for (k = 0; k < n; k++) {

@@ -4,8 +4,8 @@
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
- (type $none_=>_none (func))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
+ (type $none_=>_none (func))
  (type $i32_i32_=>_f64 (func (param i32 i32) (result f64)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
@@ -3822,9 +3822,7 @@
   global.set $~lib/memory/__stack_pointer
   local.get $9
  )
- (func $assembly/index/leastSquares (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
+ (func $assembly/index/leastSquares (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -3835,11 +3833,13 @@
   (local $10 i32)
   (local $11 i32)
   (local $12 i32)
-  (local $13 f64)
+  (local $13 i32)
   (local $14 i32)
-  (local $15 i32)
+  (local $15 f64)
   (local $16 i32)
   (local $17 i32)
+  (local $18 i32)
+  (local $19 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 36
   i32.sub
@@ -3862,352 +3862,337 @@
   i32.store offset=32
   global.get $~lib/memory/__stack_pointer
   local.get $0
-  i32.const 512
-  i32.const 512
+  local.get $1
+  local.get $2
   i32.mul
   i32.const 1
   call $assembly/index/createMatrix
-  local.tee $1
+  local.tee $3
   i32.store
   global.get $~lib/memory/__stack_pointer
   i32.const 512
   i32.const 512
   call $assembly/index/createCoefficientMatrix
-  local.tee $2
+  local.tee $4
   i32.store offset=4
   global.get $~lib/memory/__stack_pointer
-  local.get $2
+  local.get $4
   call $assembly/index/qrDecomposition
-  local.tee $3
+  local.tee $5
   i32.store offset=8
   global.get $~lib/memory/__stack_pointer
-  local.get $3
+  local.get $5
   i32.load
-  local.tee $4
+  local.tee $6
   i32.store offset=12
   global.get $~lib/memory/__stack_pointer
-  local.get $3
+  local.get $5
   i32.load offset=4
-  local.tee $5
-  i32.store offset=16
-  local.get $1
-  i32.const 0
-  call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-  local.set $17
-  global.get $~lib/memory/__stack_pointer
-  local.get $17
-  i32.store offset=20
-  local.get $17
-  call $~lib/typedarray/Float64Array#get:length
-  local.set $6
-  global.get $~lib/memory/__stack_pointer
-  local.get $1
-  call $assembly/index/cloneMatrix
   local.tee $7
-  i32.store offset=24
-  local.get $4
-  i32.const 0
-  call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-  local.set $17
-  global.get $~lib/memory/__stack_pointer
-  local.get $17
-  i32.store offset=20
-  local.get $17
-  call $~lib/typedarray/Float64Array#get:length
+  i32.store offset=16
+  i32.const 1
   local.set $8
-  local.get $4
-  call $~lib/array/Array<~lib/typedarray/Float64Array>#get:length
-  local.set $9
+  global.get $~lib/memory/__stack_pointer
+  local.get $3
+  call $assembly/index/cloneMatrix
+  local.tee $9
+  i32.store offset=20
+  i32.const 3
+  local.set $10
+  local.get $1
+  local.get $2
+  i32.mul
+  local.set $11
   i32.const 0
-  local.set $12
+  local.set $14
   loop $for-loop|0
-   local.get $12
-   local.get $8
-   i32.lt_s
-   local.set $14
    local.get $14
+   local.get $10
+   i32.lt_s
+   local.set $16
+   local.get $16
    if
     i32.const 0
-    local.set $11
+    local.set $13
     loop $for-loop|1
-     local.get $11
-     local.get $6
+     local.get $13
+     local.get $8
      i32.lt_s
-     local.set $15
-     local.get $15
+     local.set $17
+     local.get $17
      if
       f64.const 0
-      local.set $13
-      local.get $12
-      local.set $10
+      local.set $15
+      local.get $14
+      local.set $12
       loop $for-loop|2
-       local.get $10
-       local.get $9
+       local.get $12
+       local.get $11
        i32.lt_s
-       local.set $16
-       local.get $16
+       local.set $18
+       local.get $18
        if
-        local.get $13
-        local.get $4
-        local.get $10
-        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
-        global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=20
-        local.get $17
+        local.get $15
+        local.get $6
         local.get $12
-        call $~lib/typedarray/Float64Array#__uget
-        local.get $7
-        local.get $10
         call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
+        local.set $19
         global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=20
-        local.get $17
-        local.get $11
+        local.get $19
+        i32.store offset=24
+        local.get $19
+        local.get $14
+        call $~lib/typedarray/Float64Array#__uget
+        local.get $9
+        local.get $12
+        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
+        local.set $19
+        global.get $~lib/memory/__stack_pointer
+        local.get $19
+        i32.store offset=24
+        local.get $19
+        local.get $13
         call $~lib/typedarray/Float64Array#__uget
         f64.mul
         f64.add
-        local.set $13
-        local.get $10
+        local.set $15
+        local.get $12
         i32.const 1
         i32.add
-        local.set $10
+        local.set $12
         br $for-loop|2
        end
       end
-      local.get $13
+      local.get $15
       f64.neg
-      local.get $4
-      local.get $12
+      local.get $6
+      local.get $14
       call $~lib/array/Array<~lib/typedarray/Float64Array>#__get
-      local.set $17
+      local.set $19
       global.get $~lib/memory/__stack_pointer
-      local.get $17
-      i32.store offset=20
-      local.get $17
-      local.get $12
+      local.get $19
+      i32.store offset=24
+      local.get $19
+      local.get $14
       call $~lib/typedarray/Float64Array#__get
       f64.div
-      local.set $13
-      local.get $12
-      local.set $10
+      local.set $15
+      local.get $14
+      local.set $12
       loop $for-loop|3
-       local.get $10
-       local.get $9
+       local.get $12
+       local.get $11
        i32.lt_s
-       local.set $16
-       local.get $16
+       local.set $18
+       local.get $18
        if
-        local.get $7
-        local.get $10
-        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
-        global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=20
-        local.get $17
-        local.get $11
-        local.get $7
-        local.get $10
-        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
-        global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=28
-        local.get $17
-        local.get $11
-        call $~lib/typedarray/Float64Array#__uget
-        local.get $13
-        local.get $4
-        local.get $10
-        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
-        global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=28
-        local.get $17
+        local.get $9
         local.get $12
+        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
+        local.set $19
+        global.get $~lib/memory/__stack_pointer
+        local.get $19
+        i32.store offset=24
+        local.get $19
+        local.get $13
+        local.get $9
+        local.get $12
+        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
+        local.set $19
+        global.get $~lib/memory/__stack_pointer
+        local.get $19
+        i32.store offset=28
+        local.get $19
+        local.get $13
+        call $~lib/typedarray/Float64Array#__uget
+        local.get $15
+        local.get $6
+        local.get $12
+        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
+        local.set $19
+        global.get $~lib/memory/__stack_pointer
+        local.get $19
+        i32.store offset=28
+        local.get $19
+        local.get $14
         call $~lib/typedarray/Float64Array#__uget
         f64.mul
         f64.add
         call $~lib/typedarray/Float64Array#__uset
-        local.get $10
+        local.get $12
         i32.const 1
         i32.add
-        local.set $10
+        local.set $12
         br $for-loop|3
        end
       end
-      local.get $11
+      local.get $13
       i32.const 1
       i32.add
-      local.set $11
+      local.set $13
       br $for-loop|1
      end
     end
-    local.get $12
+    local.get $14
     i32.const 1
     i32.add
-    local.set $12
+    local.set $14
     br $for-loop|0
    end
   end
-  local.get $8
+  local.get $10
   i32.const 1
   i32.sub
-  local.set $12
+  local.set $14
   loop $for-loop|4
-   local.get $12
+   local.get $14
    i32.const 0
    i32.ge_s
-   local.set $14
-   local.get $14
+   local.set $16
+   local.get $16
    if
     i32.const 0
-    local.set $11
+    local.set $13
     loop $for-loop|5
-     local.get $11
-     local.get $6
+     local.get $13
+     local.get $8
      i32.lt_s
-     local.set $15
-     local.get $15
+     local.set $17
+     local.get $17
      if
-      local.get $7
-      local.get $12
+      local.get $9
+      local.get $14
       call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-      local.set $17
+      local.set $19
       global.get $~lib/memory/__stack_pointer
-      local.get $17
-      i32.store offset=20
-      local.get $17
-      local.get $11
-      local.get $7
-      local.get $12
+      local.get $19
+      i32.store offset=24
+      local.get $19
+      local.get $13
+      local.get $9
+      local.get $14
       call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-      local.set $17
+      local.set $19
       global.get $~lib/memory/__stack_pointer
-      local.get $17
+      local.get $19
       i32.store offset=28
-      local.get $17
-      local.get $11
+      local.get $19
+      local.get $13
       call $~lib/typedarray/Float64Array#__uget
-      local.get $5
-      local.get $12
+      local.get $7
+      local.get $14
       call $~lib/typedarray/Float64Array#__uget
       f64.div
       call $~lib/typedarray/Float64Array#__uset
-      local.get $11
+      local.get $13
       i32.const 1
       i32.add
-      local.set $11
+      local.set $13
       br $for-loop|5
      end
     end
     i32.const 0
-    local.set $10
+    local.set $12
     loop $for-loop|6
-     local.get $10
      local.get $12
+     local.get $14
      i32.lt_s
-     local.set $15
-     local.get $15
+     local.set $17
+     local.get $17
      if
       i32.const 0
-      local.set $11
+      local.set $13
       loop $for-loop|7
-       local.get $11
-       local.get $6
+       local.get $13
+       local.get $8
        i32.lt_s
-       local.set $16
-       local.get $16
+       local.set $18
+       local.get $18
        if
-        local.get $7
-        local.get $10
-        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
-        global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=20
-        local.get $17
-        local.get $11
-        local.get $7
-        local.get $10
-        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
-        global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=28
-        local.get $17
-        local.get $11
-        call $~lib/typedarray/Float64Array#__uget
-        local.get $7
+        local.get $9
         local.get $12
         call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
+        local.set $19
         global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=28
-        local.get $17
-        local.get $11
-        call $~lib/typedarray/Float64Array#__uget
-        local.get $4
-        local.get $10
-        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
-        local.set $17
-        global.get $~lib/memory/__stack_pointer
-        local.get $17
-        i32.store offset=28
-        local.get $17
+        local.get $19
+        i32.store offset=24
+        local.get $19
+        local.get $13
+        local.get $9
         local.get $12
+        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
+        local.set $19
+        global.get $~lib/memory/__stack_pointer
+        local.get $19
+        i32.store offset=28
+        local.get $19
+        local.get $13
+        call $~lib/typedarray/Float64Array#__uget
+        local.get $9
+        local.get $14
+        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
+        local.set $19
+        global.get $~lib/memory/__stack_pointer
+        local.get $19
+        i32.store offset=28
+        local.get $19
+        local.get $13
+        call $~lib/typedarray/Float64Array#__uget
+        local.get $6
+        local.get $12
+        call $~lib/array/Array<~lib/typedarray/Float64Array>#__uget
+        local.set $19
+        global.get $~lib/memory/__stack_pointer
+        local.get $19
+        i32.store offset=28
+        local.get $19
+        local.get $14
         call $~lib/typedarray/Float64Array#__uget
         f64.mul
         f64.sub
         call $~lib/typedarray/Float64Array#__uset
-        local.get $11
+        local.get $13
         i32.const 1
         i32.add
-        local.set $11
+        local.set $13
         br $for-loop|7
        end
       end
-      local.get $10
+      local.get $12
       i32.const 1
       i32.add
-      local.set $10
+      local.set $12
       br $for-loop|6
      end
     end
-    local.get $12
+    local.get $14
     i32.const 1
     i32.sub
-    local.set $12
+    local.set $14
     br $for-loop|4
    end
   end
   global.get $~lib/memory/__stack_pointer
-  local.get $7
+  local.get $9
+  i32.const 0
+  local.get $10
+  i32.const 1
+  i32.sub
   i32.const 0
   local.get $8
   i32.const 1
   i32.sub
-  i32.const 0
-  local.get $6
-  i32.const 1
-  i32.sub
   call $assembly/index/subMatrix
-  local.tee $14
+  local.tee $16
   i32.store offset=32
-  local.get $14
+  local.get $16
   call $assembly/index/matrixToFloat64Array
-  local.set $17
+  local.set $19
   global.get $~lib/memory/__stack_pointer
   i32.const 36
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $17
+  local.get $19
  )
  (func $~lib/array/Array<~lib/typedarray/Float64Array>#constructor (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
@@ -4497,8 +4482,8 @@
   global.set $~lib/memory/__stack_pointer
   local.get $1
  )
- (func $export:assembly/index/leastSquares (param $0 i32) (result i32)
-  (local $1 i32)
+ (func $export:assembly/index/leastSquares (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  (local $3 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.sub
@@ -4508,12 +4493,14 @@
   local.get $0
   i32.store
   local.get $0
+  local.get $1
+  local.get $2
   call $assembly/index/leastSquares
-  local.set $1
+  local.set $3
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.add
   global.set $~lib/memory/__stack_pointer
-  local.get $1
+  local.get $3
  )
 )

@@ -19,12 +19,12 @@ leastSquares(array, xres, yres);
 console.log("JS Performance: ", performance.now() - startJS)
 
 const startAS = performance.now()
-wasmLeastSquares(array);
+wasmLeastSquares(array, xres, yres);
 console.log("AS Performance: ", performance.now() - startAS)
 
 async function printWasmResult () {
   const startASAsync = performance.now();
-  res = await wasmLeastSquaresAsync(array);
+  res = await wasmLeastSquaresAsync(array, xres, yres);
   console.log("AS Async Performance: ", performance.now() - startASAsync)
 }
 printWasmResult();
