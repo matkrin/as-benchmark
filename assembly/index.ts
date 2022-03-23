@@ -2,7 +2,7 @@ export const Int32Array_ID = idof<Int32Array>();
 export const Float64Array_ID = idof<Float64Array>();
 export const Uint16Array_ID = idof<Uint16Array>();
 
-type Matrix = Array<Float64Array>
+type Matrix = StaticArray<Float64Array>
 
 class QrResult {
   qr: Matrix;
@@ -11,7 +11,7 @@ class QrResult {
 
 export function leastSquares(flatMatrix: Uint16Array, xres: i32, yres: i32): Float64Array {
   const matrix = createMatrix(flatMatrix, xres * yres, 1);
-  const coeffMatrix = createCoefficientMatrix(512, 512);
+  const coeffMatrix = createCoefficientMatrix(xres, yres);
   const qrRes: QrResult = qrDecomposition(coeffMatrix);
   const qr: Matrix = qrRes.qr;
   const rdiag: Float64Array = qrRes.rdiag;
@@ -97,7 +97,7 @@ function qrDecomposition(matrix: Matrix): QrResult {
 
 
 function declareMatrix(rows: i32, columns: i32): Matrix {
-  const matrix: Matrix = new Array(rows);
+  const matrix: Matrix = new StaticArray(rows);
   for (let row = 0; row < rows; row++) {
     unchecked(matrix[row] = new Float64Array(columns));
   }
