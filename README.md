@@ -1,6 +1,6 @@
 # as-benchmark
 
-This is a benchmark for the calculation of a fitted plane via least squares regression for a 512 &times 512 pixel STM image.
+This is a benchmark for the calculation of a fitted plane via least squares regression for a 512 &times; 512 pixel STM image.
 Three implementation are compared:
 
 - Javascript with usage of [ml-matrix](https://github.com/mljs/matrix)
