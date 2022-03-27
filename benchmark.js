@@ -1,8 +1,8 @@
-const Benchmark = require("benchmark");
-const { leastSquares } = require("./least-squares");
-const leastSquaresMlMatrix = require("./least-squares-ml-matrix")
-const { wasmLeastSquares, wasmLeastSquaresAsync } = require(".");
-const Mul = require("./mulfile_sync");
+import Benchmark from "benchmark";
+import { leastSquares } from "./least-squares.js";
+import leastSquaresMlMatrix from "./least-squares-ml-matrix.js";
+import { wasmLeastSquares } from "./build/release.js";
+import Mul from "./mulfile_sync.js";
 
 function runSuite(suite) {
   console.log("Running", suite.name);
@@ -27,7 +27,7 @@ function LeastSquaresTest() {
   const test = Benchmark.Suite("Least Square Test\n");
 
   test
-    .add("JavaScript ml-matrix\t", function() {
+    .add("JavaScript ml-matrix\t", function () {
       leastSquaresMlMatrix(array, xres, yres);
     })
     .add("JavaScript\t\t", function () {
@@ -35,14 +35,8 @@ function LeastSquaresTest() {
     })
     .add("AssemblyScript\t\t", function () {
       wasmLeastSquares(array, xres, yres);
-    })
-    .add("AssemblyScript Async\t", {
-      defer: true,
-      fn: async function(deferred) {
-      await wasmLeastSquaresAsync(array, xres, yres);
-      deferred.resolve();
-    }})
-    runSuite(test);
+    });
+  runSuite(test);
 }
 
 LeastSquaresTest();

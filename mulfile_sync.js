@@ -1,6 +1,6 @@
-const fs = require("fs");
+import fs from "fs";
 
-class Mul {
+export default class Mul {
   constructor(mulfile) {
     this.data = this.readMul(mulfile);
   }
@@ -79,17 +79,17 @@ class Mul {
       let spare62 = buffer.readInt16LE((pos += 2));
       let spare63 = buffer.readInt16LE((pos += 2));
 
-      let imgData = []
-      for(let i = 0; i < yres; i++) {
-          let line = []
-          for(let j = 0; j < xres; j++) {
-              let dataPoint = buffer.readInt16LE(pos += 2); // * -0.01/1.36 * zscale/2000;
-              line.push(dataPoint);
-          }
-          imgData.push(line);
+      let imgData = [];
+      for (let i = 0; i < yres; i++) {
+        let line = [];
+        for (let j = 0; j < xres; j++) {
+          let dataPoint = buffer.readInt16LE((pos += 2)); // * -0.01/1.36 * zscale/2000;
+          line.push(dataPoint);
+        }
+        imgData.push(line);
       }
-    //   let imgData = new Uint16Array(buffer, pos += 2, xres * yres);
-    //   pos += xres * yres * 2 - 2;
+      //   let imgData = new Uint16Array(buffer, pos += 2, xres * yres);
+      //   pos += xres * yres * 2 - 2;
 
       if (numPointscans > 0) {
         for (let i = 0; i < num_pointscans; i++) {
@@ -165,5 +165,3 @@ class Mul {
     return images;
   }
 }
-
-module.exports= Mul;
