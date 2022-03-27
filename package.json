@@ -1,23 +1,30 @@
 {
-  "name": "as-benchmark",
+  "name": "assemblyscript-0.2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "node tests",
-    "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime",
-    "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime --noAssert -O3",
-    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
+    "asbuild:debug": "asc assembly/index.ts --target debug --exportRuntime",
+    "asbuild:release": "asc assembly/index.ts --target release --exportRuntime --noAssert -O3",
+    "asbuild": "npm run asbuild:debug && npm run asbuild:release",
+    "start": "npx serve .",
     "benchmark": "node benchmark"
   },
   "author": "matkrin",
   "license": "MIT",
+  "devDependencies": {
+    "assemblyscript": "^0.20.1"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./build/release.js",
+      "types": "./build/release.d.ts"
+    }
+  },
   "dependencies": {
-    "@assemblyscript/loader": "^0.19.23",
     "benchmark": "^2.1.4",
     "ml-matrix": "^6.9.0"
-  },
-  "devDependencies": {
-    "assemblyscript": "^0.19.23"
   }
 }

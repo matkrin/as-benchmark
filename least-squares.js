@@ -5,10 +5,10 @@ function leastSquares(flatMatrix, xres, yres) {
   const qr = qrRes.qr;
   const rdiag = qrRes.rdiag;
 
-  let count = 1;  // matrix[0].length;
+  let count = 1; // matrix[0].length;
   let X = cloneMatrix(matrix);
-  let n = 3  // qr[0].length;
-  let m = xres * yres // qr.length;
+  let n = 3; // qr[0].length;
+  let m = xres * yres; // qr.length;
   let i, j, k, s;
 
   for (k = 0; k < n; k++) {
@@ -39,8 +39,8 @@ function leastSquares(flatMatrix, xres, yres) {
 }
 
 function qrDecomposition(matrix) {
-  qr = cloneMatrix(matrix);
-  let m = 262144;
+  const qr = cloneMatrix(matrix);
+  let m = matrix.length;
   let n = 3;
   let rdiag = new Float64Array(n);
   let i, j, k, s;
@@ -71,7 +71,7 @@ function qrDecomposition(matrix) {
     }
     rdiag[k] = -nrm;
   }
-  return {qr: qr, rdiag: rdiag};
+  return { qr: qr, rdiag: rdiag };
 }
 
 function declareMatrix(rows, columns) {
@@ -82,7 +82,7 @@ function declareMatrix(rows, columns) {
   return matrix;
 }
 
-function createMatrix(flatMatrix, rows , columns ) {
+function createMatrix(flatMatrix, rows, columns) {
   const matrix = declareMatrix(rows, columns);
   let n = 0;
   for (let row = 0; row < rows; row++) {
@@ -97,7 +97,7 @@ function createMatrix(flatMatrix, rows , columns ) {
 function cloneMatrix(matrix) {
   const rows = matrix.length;
   const cols = matrix[0].length;
-  const clone = declareMatrix(rows, cols)
+  const clone = declareMatrix(rows, cols);
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < cols; col++) {
       clone[row][col] = matrix[row][col];
@@ -150,7 +150,7 @@ function hypotenuse(a, b) {
 function subMatrix(matrix, startRow, endRow, startColumn, endColumn) {
   let newMatrix = declareMatrix(
     endRow - startRow + 1,
-    endColumn - startColumn + 1,
+    endColumn - startColumn + 1
   );
   for (let i = startRow; i <= endRow; i++) {
     for (let j = startColumn; j <= endColumn; j++) {
@@ -161,23 +161,24 @@ function subMatrix(matrix, startRow, endRow, startColumn, endColumn) {
 }
 
 function createCoefficientMatrix(rows, columns) {
-  const len = rows * columns
-  const coeffMatrix = declareMatrix(len, 3)
+  const len = rows * columns;
+  const coeffMatrix = declareMatrix(len, 3);
 
-  let n = 0
-  let m = 0
+  let n = 0;
+  let m = 0;
   for (let row = 0; row < len; row++) {
     coeffMatrix[row][0] = 1; // always 1
     coeffMatrix[row][1] = n; // 512x(0 - 512) -> 512x(0 - 512) -> ...
     coeffMatrix[row][2] = m; // 512x0 -> 512x1 -> 512x2 -> ...
     n++;
     if (n >= rows) {
-        n = 0;
+      n = 0;
     }
     if ((row + 1) % rows == 0) {
-        m++;
+      m++;
     }
   }
   return coeffMatrix;
 }
-module.exports = {leastSquares, createCoefficientMatrix};
+
+export { leastSquares, createCoefficientMatrix };
